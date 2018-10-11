@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+{% block title %} Login {% endblock %}
+{% block body %}
+    <div class="card my-5">
+        <div class="card-header">
+            <h1>Login</h1>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <form action="{{ path('login') }}" method="post">
+                    <label for="username">Username:</label>
+                    <input type="text" class="form-control" name="_username" value="{{ last_username }}">
+                    <label for="password">Password:</label>
+                    <input type="password" class="form-control" name="_password"/>
+                    {% if error %}
+                        <div class="alert alert-danger my-2">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
+                    <input class="btn btn-outline-dark btn-md btn-block my-3" type="submit" name="submit" value="Login">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

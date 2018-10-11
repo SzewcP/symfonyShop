@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% block title %}Profile{% endblock %}
+{% block sidebar %} {% include('/inc/sidebar.html.twig') %} {% endblock %}
+{% block body %}
+    <div class="form-control my-5">
+        <h1>Profile</h1>
+        <p>Nickname: {{ app.user.username }}</p>
+        <p>Email: {{ app.user.email }}</p>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <div class="alert-danger">{{ form_errors(form) }}</div>
+        <button class="btn btn-outline-dark btn-md btn-block mb-xl-4 my-4">{{ button_label|default('Save') }}</button>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}

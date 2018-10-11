@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Products{% endblock %}
+
+{% block body %}
+    <h1>Products</h1>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Date_of_creation</th>
+                <th>Date_of_last_modification</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr>
+                <td>{{ product.id }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.dateOfCreation ? product.dateOfCreation|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ product.dateOfLastModification ? product.dateOfLastModification|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('product_show', {'id': product.id}) }}" class="btn btn-outline-dark">show</a>
+                    <a href="{{ path('product_edit', {'id': product.id}) }}" class="btn btn-outline-primary">edit</a>
+                </td>
+                <td>
+                    <form action="{{ path('cart') }}" method="POST">
+                        <input type="hidden" name="id" value="{{ product.id }}">
+                        <input class="btn btn-outline-dark btn-block" type="submit" name="submit" value="Add to cart">
+                    </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('product_new') }}" class="btn btn-outline-dark">Create new</a>
+    <a href="{{ path('category_index') }}" class="btn btn-outline-dark">Categories</a>
+{% endblock %}

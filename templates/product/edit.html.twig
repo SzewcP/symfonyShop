@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Product{% endblock %}
+
+{% block body %}
+    <h1>{{ product.name }}</h1>
+    {% for image in product.images %}
+        {% if image.getMain() %}
+        <td><img src="/uploads/image/{{ image.image }}" width="300" height="300" ></td>
+        {% endif %}
+    {% endfor %}
+    {{ include('product/_form.html.twig', {'button_label': 'Update'}) }}
+    <a href="{{ path('product_index') }}" class="btn btn-outline-dark btn-lg btn-block">back to list</a>
+    {{ include('product/_delete_form.html.twig') }}
+    <form action="{{ path('product_edit', {'id': product.id}) }}" method="POST">
+        <table id ="sortable" class="table table-hover">
+            {% for image in product.getImages %}
+                <tbody id="item-{{ image.id }}">
+                    <td><img src="/uploads/image/{{ image.image }}" width="128" height="128" ></td>
+                    <td>
+                        <div class="radio">
+                            <label><input type="radio" name="image" value="{{ image.id }}">Main picture</label>
+                        </div>
+                    </td>
+                </tbody>
+            {% endfor %}
+        </table>
+        <input class="btn btn-outline-dark btn-lg btn-block" type="submit" name="submit" value="Select Main picture">
+    </form>
+    <table class="table">
+    {% for image in product.getImages %}
+        <th><img src="/uploads/image/{{ image.image }}" width="80" height="80" ></th>
+        <td>{{ include('image/_delete_form.html.twig') }}</td>
+    {% endfor %}
+    </table>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="/bootstrap/js/sortable.js"></script>
+{% endblock %}

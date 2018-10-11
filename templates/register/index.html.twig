@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <div class="card my-5">
+        <div class="card-header">
+            <h1>Register</h1>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                {{ form_start(form) }}
+                {{ form_row(form.username) }}
+                {{ form_row(form.email) }}
+                {{ form_row(form.plainPassword.first) }}
+                {{ form_row(form.plainPassword.second) }}
+                <div class="alert-danger">{{ form_errors(form) }}</div>
+                <input class="btn btn-outline-dark btn-md btn-block my-3" type="submit" name="submit" value="Register">
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

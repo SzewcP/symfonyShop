@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Shopping Cart{% endblock %}
+
+{% block body %}
+    <h1 class="my-4">Shopping Cart</h1>
+    <table id="myTable" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Cost</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody class="checkout">
+        {% for key, products in app.session.get('cart') %}
+            <tr>
+                <td>{{ products.name }}</td>
+                <td><input type="text" class="price" name="price" value="{{ products.price }} £" disabled>
+                </td>
+                <td class="cart_quantity">
+                    <input type='button' value='-' class='qtyminus' field='quantity'/>
+                    <input type='text' name='quantity' value='1' class='qty' size="5"/>
+                    <input type='button' value='+' class='qtyplus' field='quantity'/>
+                </td>
+                <td align="center">
+                    <p type="text" id="amount"><span id="amount" class="amount"></span> £</p>
+                </td>
+                <td>
+                    <form method="post" action="{{ path('cart_delete',{'id': key}) }}"
+                          onsubmit="return confirm('Are you sure you want to delete this item?');">
+                        <button class="btn btn-outline-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+            <div class="form-control my-5 col-lg-7">
+                <h1>Total</h1>
+                <div class="form-control my-2">
+                    <label>Total Quantity:</label>
+                    <body onload="javascript:calc2()"></body>
+                    <body onclick="javascript:calc2()"></body>
+                    <p><label id="totalQty"></label></p>
+                </div>
+                <div class="form-control my-2">
+                    <body onload="javascript:calc()"></body>
+                    <body onclick="javascript:calc()"></body>
+                    <label>Total Cost:</label>
+                    <p><label id="cost"></label> £</p>
+                </div>
+            </div>
+    </table>
+    <script src="/bootstrap/js/cart.js"></script>
+{% endblock %}
